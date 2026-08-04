@@ -56,17 +56,40 @@ public:
 };
 
 int main() {
-    ConferenceScheduler scheduler({"Room A", "Room B"});
-    int n;
-    cout << "Enter number of conference sessions: ";
-    cin >> n;
-    for (int i = 0; i < n; ++i) {
+    int numRooms;
+    cout << "Enter number of available conference rooms: ";
+    cin >> numRooms;
+
+    vector<string> roomNames;
+    for (int i = 0; i < numRooms; ++i) {
+        string rName;
+        cout << "  Enter name for Room " << (i + 1) << " (e.g., Room-A): ";
+        cin >> rName;
+        roomNames.push_back(rName);
+    }
+
+    ConferenceScheduler scheduler(roomNames);
+
+    int numSessions;
+    cout << "\nEnter number of sessions to schedule: ";
+    cin >> numSessions;
+
+    for (int i = 0; i < numSessions; ++i) {
         int id, start, end;
         string title;
-        cout << "Enter ID, Title, StartTime, EndTime: ";
-        cin >> id >> title >> start >> end;
+        cout << "\nSession " << (i + 1) << " Details:\n";
+        cout << "  Enter Session ID: ";
+        cin >> id;
+        cout << "  Enter Title (use underscores instead of spaces): ";
+        cin >> title;
+        cout << "  Enter Start Time (e.g., 900 for 9:00 AM): ";
+        cin >> start;
+        cout << "  Enter End Time (e.g., 1030 for 10:30 AM): ";
+        cin >> end;
+
         scheduler.addSession(id, title, start, end);
     }
+
     scheduler.scheduleEvents();
     return 0;
 }
